@@ -18,6 +18,10 @@ Plugin 'kien/tabman.vim'
 "https://github.com/plasticboy/vim-markdown
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
+Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'tomasr/molokai'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'mhinz/vim-signify'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -102,6 +106,9 @@ endif
 if &t_Co > 2 || has("gui_running")
   syntax on
   set hlsearch
+  if has("gui_running")
+    colorscheme molokai
+  endif
 endif
 
 if &term=="xterm"
@@ -242,6 +249,7 @@ nmap <C-x>vd :vertical diffsplit
 " Highlight and kill all tailing space
 nmap <C-x>hs /\s\+$<CR>
 nmap <C-x>ks :%s/\s\+$//g<CR>
+nmap <C-x>kl :%s/^\s*\n//g<CR>
 
 " Thomson Dev Env Setting
 "set makeprg=/usr/atria/bin/clearmake\ -C\ GNU
@@ -266,16 +274,6 @@ let OmniCpp_ShowAccess = 1
 let OmniCpp_MayCompleteDot = 1
 let OmniCpp_MayCompleteArrow = 1
 let OmniCpp_MayCompleteScope = 1
-
-""""""""""""""""""""""""""""""
-" changePlugin setting
-""""""""""""""""""""""""""""""
-"let g:changes_hl_lines=1                       "highlight the whole line
-"let g:changes_autocmd=1
-let g:changes_verbose=0
-"hi DiffAdd term=bold ctermbg=4 guibg=DarkBlue
-"hi DiffDelete term=bold ctermbg=1 guibg=Red
-"hi DiffChange term=bold ctermbg=3 guibg=Yellow
 
 " abbreviate list
 ab dgebid document.getElementById(
@@ -368,8 +366,16 @@ match col80 /\%<81v.\%>80v/
 "set colorcolumn=80
 
 " airline setup
-"let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_tabs = 1
+let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '◀'
 
 " vim-markdown setup
 let g:vim_markdown_math = 1
 let g:vim_markdown_frontmatter = 1
+
+" Molokai colorscheme setup
+let g:molokai_original = 1
+let g:rehash256 = 1
