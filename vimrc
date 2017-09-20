@@ -24,7 +24,7 @@ Plugin 'terryma/vim-multiple-cursors'
 Plugin 'mhinz/vim-signify'
 
 " All of your Plugins must be added before the following line
-call vundle#end()            " required
+call vundle#end()             " required
 filetype plugin indent off    " required
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
@@ -44,15 +44,15 @@ endif
 
 set nocompatible        " Use Vim defaults (much better!)
 set bs=2                " allow backspacing over everything in insert mode
-set noai			    " always set autoindenting off
+set noai                " always set autoindenting off
 set cindent             " enable cindent
 set nosmartindent       " autoindenting smartly off
-"set backup	            " keep a backup file
-set viminfo='20,\"50	" read/write a .viminfo file, don't store more
+"set backup             " keep a backup file
+set viminfo='20,\"50    " read/write a .viminfo file, don't store more
                         " than 50 lines of registers
-set history=150		    " keep 50 lines of command line history
-set ruler		        " show the cursor position all the time
-set number		        " show the number of lines
+set history=150         " keep 50 lines of command line history
+set ruler               " show the cursor position all the time
+set number              " show the number of lines
 set showcmd             " show the cmd
 set showmode            " show mode info
 set whichwrap=b,s,<,>   " can use Backspace Space <Left> <Right> wrap
@@ -63,13 +63,14 @@ set smartcase           " set smart case
 "set cursorcolumn        " set the cursorcolumn highlight
 "set cursorline          " set the cursorline highlight
 "set textwidth=80        " set the width of column is 80
-set expandtab           " use <SPACE> instead of <TAB> when using <TAB>
+"set expandtab           " use <SPACE> instead of <TAB> when using <TAB>
 set shiftwidth=2        " set shift move width as 2 <SPACE>
-set tabstop=4           " set <TAB> space as 4
+set tabstop=8           " set <TAB> space as 4
 set laststatus=2        " always show statusline
 "set foldmethod=syntax   " fold the code by syntax file
 set wildmenu            "show wild menu
 set modeline            " set modeline on
+set wrapscan            " search wrap around the end of file
 
 if has("statusline")
  set statusline=%<%f\ %h%m%r%y%=%{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"]\ \"}%k\ %b\ 0x%B\ \ %-14.(%l,%c%V%)\ %P
@@ -337,6 +338,7 @@ set t_Co=256            "set termcap-colors as 256 color
 " ctermbg=
 " colorscheme darkblue
 " highlight Normal      ctermbg=Black
+highlight CursorColumn term=reverse ctermfg=1 ctermbg=3 guibg=Grey90
 highlight CursorLine  term=reverse cterm=bold ctermbg=6
 highlight LineNr      term=underline ctermfg=3 guifg=Brown
 highlight Search      term=reverse ctermfg=0 ctermbg=3 guibg=Yellow
@@ -379,3 +381,8 @@ let g:vim_markdown_frontmatter = 1
 " Molokai colorscheme setup
 let g:molokai_original = 1
 let g:rehash256 = 1
+
+" Indent guides setup
+" '\ig' to toggle it
+hi IndentGuidesOdd  ctermbg=black
+hi IndentGuidesEven ctermbg=darkgrey
