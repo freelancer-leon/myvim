@@ -119,18 +119,18 @@ if &term=="xterm"
 endif
 
 if has("cscope")
-	set csprg=/usr/bin/cscope
-	set csto=0
-	set cst
-	set nocsverb
-	" add any database in current directory
-	if filereadable("cscope.out")
-	    cs add cscope.out
-	" else add database pointed to by environment
-	elseif $CSCOPE_DB != ""
-	    cs add $CSCOPE_DB
-	endif
-	set csverb
+  set csprg=/usr/bin/cscope
+  set csto=0
+  set cst
+  set nocsverb
+  " add any database in current directory
+  if filereadable("cscope.out")
+      cs add cscope.out
+  " else add database pointed to by environment
+  elseif $CSCOPE_DB != ""
+      cs add $CSCOPE_DB
+  endif
+  set csverb
 endif
 
 if has('multi_byte') && v:version > 601
@@ -286,36 +286,53 @@ ab dgesbtn document.getElementsByTagName(
 "nmap <C-\>x :call Window_Close("CCTree-Preview")<CR>
 " Close the window
 function! Window_Close(window_title)
-    " Make sure the window exists
-    let winnum = bufwinnr(a:window_title)
-    if winnum == -1
-        echohl WarningMsg
-        echomsg 'Error: '.a:window_title.' is not open'
-        echohl None
-        return
-    endif
+  " Make sure the window exists
+  let winnum = bufwinnr(a:window_title)
+  if winnum == -1
+    echohl WarningMsg
+    echomsg 'Error: '.a:window_title.' is not open'
+    echohl None
+    return
+  endif
 
-    if winnr() == winnum
-        " Already in the window. Close it and return
-        if winbufnr(2) != -1
-            " If a window other than the window is open,
-            " then only close the window.
-            close
-        endif
-    else
-        " Goto the window, close it and then come back to the
-        " original window
-        let curbufnr = bufnr('%')
-        exe winnum . 'wincmd w'
-        close
-        " Need to jump back to the original window only if we are not
-        " already in that window
-        let winnum = bufwinnr(curbufnr)
-        if winnr() != winnum
-            exe winnum . 'wincmd w'
-        endif
+  if winnr() == winnum
+    " Already in the window. Close it and return
+    if winbufnr(2) != -1
+      " If a window other than the window is open,
+      " then only close the window.
+      close
     endif
+  else
+    " Goto the window, close it and then come back to the
+    " original window
+    let curbufnr = bufnr('%')
+    exe winnum . 'wincmd w'
+    close
+    " Need to jump back to the original window only if we are not
+    " already in that window
+    let winnum = bufwinnr(curbufnr)
+    if winnr() != winnum
+      exe winnum . 'wincmd w'
+    endif
+  endif
 endfunction
+
+" ignore whitespace/tab changesin vimdiff
+if &diff
+  set diffopt+=iwhite
+  set diffexpr=DiffW()
+  function DiffW()
+    let opt = ""
+     if &diffopt =~ "icase"
+       let opt = opt . "-i "
+     endif
+     if &diffopt =~ "iwhite"
+       let opt = opt . "-w " " swapped vim's -b with -w
+     endif
+     silent execute "!diff -a --binary " . opt .
+       \ v:fname_in . " " . v:fname_new .  " > " . v:fname_out
+  endfunction
+endif
 
 " DirDiff settings
 let g:DirDiffExcludes = "CVS,*.class,*.exe,.*.swp" "Sets default exclude pattern
