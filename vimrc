@@ -13,8 +13,12 @@ Plugin 'gmarik/Vundle.vim'
 "Plugin 'Valloric/YouCompleteMe'
 "https://github.com/bling/vim-airline
 Plugin 'bling/vim-airline'
+
 "https://github.com/kien/tabman.vim
 Plugin 'kien/tabman.vim'
+"Press <leader>mt or run :TMToggle to toggle TabMan.
+"Press <leader>mf or run :TMFocus to give focus to/open the TabMan window.
+
 "https://github.com/plasticboy/vim-markdown
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
@@ -22,6 +26,7 @@ Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'tomasr/molokai'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'mhinz/vim-signify'
+Plugin 'rust-lang/rust.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()             " required
@@ -65,7 +70,7 @@ set smartcase           " set smart case
 "set textwidth=80        " set the width of column is 80
 "set expandtab           " use <SPACE> instead of <TAB> when using <TAB>
 set shiftwidth=2        " set shift move width as 2 <SPACE>
-set tabstop=8           " set <TAB> space as 4
+set tabstop=4           " set <TAB> space as 4
 set laststatus=2        " always show statusline
 "set foldmethod=syntax   " fold the code by syntax file
 set wildmenu            "show wild menu
@@ -224,7 +229,7 @@ map <C-x>p <ESC>:cp<ENTER>
 map <C-x>c <ESC>:cc
 
 " Find content be selected in VISUAL mode
-vmap <C-x>f y/<C-R>"<CR>
+vmap <C-x><C-f> y/<C-R>"<CR>
 " Grep keyword under cursor in NORMAL mode
 nmap <C-x>g :grep -rin <C-R>=expand("<cword>")<CR> *<CR><CR><CR><C-o>:copen<CR>
 " Grep content be selected in VISUAL mode
@@ -250,7 +255,13 @@ nmap <C-x>vd :vertical diffsplit
 " Highlight and kill all tailing space
 nmap <C-x>hs /\s\+$<CR>
 nmap <C-x>ks :%s/\s\+$//g<CR>
+" Kill empty lines
 nmap <C-x>kl :%s/^\s*\n//g<CR>
+" Resize window
+nmap -- 5<C-w>-
+nmap ++ 5<C-w>+
+nmap >> 5<C-w>>
+nmap << 5<C-w><
 
 " Thomson Dev Env Setting
 "set makeprg=/usr/atria/bin/clearmake\ -C\ GNU
@@ -259,7 +270,7 @@ nmap <C-x>kl :%s/^\s*\n//g<CR>
 set tags=./tags,tags
 set tags+=/local/indexdir/kernel/tags
 au BufNewFile,BufRead *.map set filetype=lua
-au BufNewFile,BufRead *.bbclass set filetype=sh
+au BufNewFile,BufRead *.bbclass set filetype=bitbake
 
 " prevent the preview window while used omnicppcomplete
 set completeopt=menu
@@ -383,6 +394,14 @@ match col80 /\%<81v.\%>80v/
 " * highlight the whole column
 "highlight ColorColumn term=reverse ctermbg=6 guibg=LightRed
 "set colorcolumn=80
+" * highlight the space end of line
+highlight WhitespaceEOL ctermbg=red guibg=red
+match WhitespaceEOL /\s\+$/
+
+" Indent guides setup
+" '\ig' to toggle it
+hi IndentGuidesOdd  ctermbg=black
+hi IndentGuidesEven ctermbg=darkgrey
 
 " airline setup
 let g:airline#extensions#tabline#enabled = 1
@@ -398,8 +417,3 @@ let g:vim_markdown_frontmatter = 1
 " Molokai colorscheme setup
 let g:molokai_original = 1
 let g:rehash256 = 1
-
-" Indent guides setup
-" '\ig' to toggle it
-hi IndentGuidesOdd  ctermbg=black
-hi IndentGuidesEven ctermbg=darkgrey
