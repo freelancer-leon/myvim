@@ -12,7 +12,8 @@ Plugin 'gmarik/Vundle.vim'
 "https://github.com/Valloric/YouCompleteMe
 "Plugin 'Valloric/YouCompleteMe'
 "https://github.com/bling/vim-airline
-Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline'
+"Plugin 'vim-airline/vim-airline-themes'
 
 "https://github.com/kien/tabman.vim
 Plugin 'kien/tabman.vim'
@@ -27,6 +28,7 @@ Plugin 'tomasr/molokai'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'mhinz/vim-signify'
 Plugin 'rust-lang/rust.vim'
+Plugin 'ErichDonGubler/vim-sublime-monokai'
 
 " All of your Plugins must be added before the following line
 call vundle#end()             " required
@@ -113,7 +115,7 @@ if &t_Co > 2 || has("gui_running")
   syntax on
   set hlsearch
   if has("gui_running")
-    colorscheme molokai
+    colorscheme sublimemonokai
   endif
 endif
 
@@ -144,6 +146,8 @@ if has('multi_byte') && v:version > 601
   endif
 endif
 
+set path=.,**/include
+
 " cscope keymap from cscope homepage
 nmap <C-_>s :cs find s <C-R>=expand("<cword>")<CR><CR>
 nmap <C-_>g :cs find g <C-R>=expand("<cword>")<CR><CR>
@@ -172,7 +176,7 @@ nmap <C-\>d :set cscopequickfix=s-,g-,c-,d-,i-,t-,e-,f-<CR>
 \:cs find d <C-R>=expand("<cword>")<CR><CR><C-o>:copen<CR>:set cscopequickfix=<CR>
 
 " Open preview define window
-nmap <C-\><C-\> <C-w>}<C-w>P<C-w>J<C-w>p
+nmap <C-\><C-\> <C-w>g}<C-w>P<C-w>J<C-w>p
 
 "" Open a file managers with <F12>
 " map <F12> <ESC>:vsplit<ENTER>:edit `pwd`<ENTER>i
@@ -238,9 +242,9 @@ vmap <C-x>g y:grep -rin "<C-R>"" *<CR><CR><CR><C-o>:copen<CR>
 " MultipleSearch plugin setting
 let g:MultipleSearchMaxColors = 10
 " Highlight the word under cursor
-nmap \m :Search <C-R>=expand("<cword>")<CR><CR>
+nmap <leader>m :Search <C-R>=expand("<cword>")<CR><CR>
 " Clear highlight
-nmap \c :SearchReset<CR>
+nmap <leader>c :SearchReset<CR>
 
 " Save file
 imap <C-x>s <C-o>:w<CR>
@@ -260,10 +264,9 @@ nmap <C-x>kl :%s/^\s*\n//g<CR>
 " Resize window
 nmap -- 5<C-w>-
 nmap ++ 5<C-w>+
-nmap >> 5<C-w>>
-nmap << 5<C-w><
+nmap +_ 5<C-w>>
+nmap +) 5<C-w><
 
-" Thomson Dev Env Setting
 "set makeprg=/usr/atria/bin/clearmake\ -C\ GNU
 " set cscopeverbose               " don't display message when add cscope DB
 " cscope add /local/indexdir/cscope.out
@@ -364,7 +367,7 @@ set t_Co=256            "set termcap-colors as 256 color
 " cterm=reverse|underline|bold|standout
 " ctermfg=
 " ctermbg=
-" colorscheme darkblue
+" colorscheme sublimemonokai
 " highlight Normal      ctermbg=Black
 highlight CursorColumn term=reverse ctermfg=1 ctermbg=3 guibg=Grey90
 highlight CursorLine  term=reverse cterm=bold ctermbg=6
