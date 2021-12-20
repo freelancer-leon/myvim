@@ -29,6 +29,7 @@ Plugin 'terryma/vim-multiple-cursors'
 Plugin 'mhinz/vim-signify'
 Plugin 'rust-lang/rust.vim'
 Plugin 'ErichDonGubler/vim-sublime-monokai'
+Plugin 'luochen1990/rainbow'
 
 " All of your Plugins must be added before the following line
 call vundle#end()             " required
@@ -146,7 +147,7 @@ if has('multi_byte') && v:version > 601
   endif
 endif
 
-set path=.,**/include
+set path=.,**/include,,
 
 " cscope keymap from cscope homepage
 nmap <C-_>s :cs find s <C-R>=expand("<cword>")<CR><CR>
@@ -420,3 +421,6 @@ let g:vim_markdown_frontmatter = 1
 " Molokai colorscheme setup
 let g:molokai_original = 1
 let g:rehash256 = 1
+
+" Rainbow Parentheses Improved
+let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
